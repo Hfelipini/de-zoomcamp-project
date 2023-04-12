@@ -17,6 +17,9 @@ def transform(path: Path) -> pd.DataFrame:
     """Data cleaning example"""
     df = pd.read_csv(path)
     df.head(10)
+    # Formatar com 2 casas após a vírgula
+    # limpar a formatação \000
+    # gsutil cp gs://dtc_data_lake_de-zoomcamp-project-hfelipini/2023.04.10-14.45.00.csv - | tr -d '\000' | gsutil cp - gs://dtc_data_lake_de-zoomcamp-project-hfelipini/2023.04.10-14.45.00V2.csv
 #    print(f"pre: missing passenger count: {df['high'].isna().sum()}")
 #    df["high"].fillna(0, inplace=True)
 #    print(f"post: missing passenger count: {df['passenger_count'].isna().sum()}")
