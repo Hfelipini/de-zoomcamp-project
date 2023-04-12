@@ -16,6 +16,7 @@ def extract_from_gcs() -> Path:
 def transform(path: Path) -> pd.DataFrame:
     """Data cleaning example"""
     df = pd.read_csv(path)
+    df.head(10)
 #    print(f"pre: missing passenger count: {df['high'].isna().sum()}")
 #    df["high"].fillna(0, inplace=True)
 #    print(f"post: missing passenger count: {df['passenger_count'].isna().sum()}")
@@ -41,7 +42,7 @@ def etl_gcs_to_bq():
 
     path = extract_from_gcs()
     df = transform(path)
-    write_bq(df)
+#    write_bq(df)
 
 
 if __name__ == "__main__":
