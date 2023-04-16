@@ -14,8 +14,8 @@ Filepath='1_Metatrader/Files/'
 onlyfiles = [f for f in listdir(Filepath) if isfile(join(Filepath, f))]
 
 for size in range(len(onlyfiles)):
-    File=onlyfiles[size]
-    blob = bucket.blob(File)
+    File = onlyfiles[size]
+    blob = bucket.blob("1-Raw/"+File)
     blob.upload_from_filename(Filepath+File)
     print(buckets, size, len(onlyfiles))
-    os.remove(Filepath+File)
+    #os.remove(Filepath+File)
