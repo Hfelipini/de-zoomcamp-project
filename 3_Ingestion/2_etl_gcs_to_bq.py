@@ -4,6 +4,7 @@ from prefect import flow, task
 from prefect_gcp.cloud_storage import GcsBucket
 from prefect_gcp import GcpCredentials
 
+
 @task(retries=3)
 def extract_from_gcs() -> Path:
     """Download stock data from GCS"""
