@@ -10,7 +10,8 @@ storage_client = storage.Client()
 buckets = list(storage_client.list_buckets())
 bucket = storage_client.get_bucket("dtc_data_lake_de-zoomcamp-project-hfelipini") # your bucket name
 
-Filepath='1_Metatrader/Files/'
+#Filepath='1_Metatrader/Files/'
+Filepath='C:/Users/hfeli/AppData/Roaming/MetaQuotes/Terminal/D0E8209F77C8CF37AD8BF550E51FF075/MQL5/Files/'
 onlyfiles = [f for f in listdir(Filepath) if isfile(join(Filepath, f))]
 
 for size in range(len(onlyfiles)):
