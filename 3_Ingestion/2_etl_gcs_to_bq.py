@@ -4,37 +4,45 @@ from prefect import flow, task
 from prefect_gcp.cloud_storage import GcsBucket
 from prefect_gcp import GcpCredentials
 
-
 @task(retries=3)
 def extract_from_gcs() -> Path:
     """Download stock data from GCS"""
-    gcs_path = f"dtc_data_lake_de-zoomcamp-project-hfelipini/2023.04.10-14.45.00.csv"
-    gcs_block = GcsBucket.load("zoom-gcs")
-    gcs_block.get_directory(from_path=gcs_path, local_path=f"../data/")
-    return Path(f"../data/{gcs_path}")
+    gcs_path = f"1-Raw/2023.04.14-10.08.00.csv"
+    gcs_block = GcsBucket.load("de-project")
+    gcs_block.get_directory(from_path=gcs_path, local_path=f"Data/")
+
+    return Path(f"Data/{gcs_path}")
 
 @task()
 def transform(path: Path) -> pd.DataFrame:
-    """Data cleaning example"""
+    """Data cleaning"""
     df = pd.read_csv(path)
-    df.head(10)
-    # Formatar com 2 casas após a vírgula
-    # limpar a formatação \000
-    # gsutil cp gs://dtc_data_lake_de-zoomcamp-project-hfelipini/2023.04.10-14.45.00.csv - | tr -d '\000' | gsutil cp - gs://dtc_data_lake_de-zoomcamp-project-hfelipini/2023.04.10-14.45.00V2.csv
-#    print(f"pre: missing passenger count: {df['high'].isna().sum()}")
-#    df["high"].fillna(0, inplace=True)
-#    print(f"post: missing passenger count: {df['passenger_count'].isna().sum()}")
+    #print(df["Open"].head(21))
+    #print(f"columns: {df.dtypes}")
+    #print(f"rows: {len(df)}")
+        
+    df["DateTime"] = pd.to_datetime(df["DateTime"])
+    df["Open"] = pd.to_numeric(df["Open"]).round(2)
+    df["High"] = pd.to_numeric(df["High"]).round(2)
+    df["Low"] = pd.to_numeric(df["Low"]).round(2)
+    df["Close"] = pd.to_numeric(df["Close"]).round(2)
+    df["RealVolume"] = pd.to_numeric(df["RealVolume"])
+    df["Spread"] = pd.to_numeric(df["Spread"])
+    df["TickVolume"] = pd.to_numeric(df["TickVolume"])
+    #print(df["Open"].head(21))
+    #print(f"columns: {df.dtypes}")
+    #print(f"rows: {len(df)}")
     return df
 
 @task()
 def write_bq(df: pd.DataFrame) -> None:
     """Write DataFrame to BiqQuery"""
 
-    gcp_credentials_block = GcpCredentials.load("zoom-gcp-creds")
+    gcp_credentials_block = GcpCredentials.load("de-project-creds")
 
     df.to_gbq(
-        destination_table="dezoomcamp.rides",
-        project_id="prefect-sbx-community-eng",
+        destination_table="de_project_dataset.python_test",
+        project_id="de-zoomcamp-project-hfelipini",
         credentials=gcp_credentials_block.get_credentials_from_service_account(),
         chunksize=500_000,
         if_exists="append",
@@ -46,7 +54,7 @@ def etl_gcs_to_bq():
 
     path = extract_from_gcs()
     df = transform(path)
-#    write_bq(df)
+    write_bq(df)
 
 
 if __name__ == "__main__":
