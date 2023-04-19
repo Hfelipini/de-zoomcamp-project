@@ -5,6 +5,7 @@ from prefect_gcp.cloud_storage import GcsBucket
 from prefect_gcp import GcpCredentials
 from google.cloud import storage
 import os
+import csv
 
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"]="C:/Users/hfeli/OneDrive/Documents/Cursos/DataEngineering/Projects/de-zoomcamp-project-important-files/de-zoomcamp-project-hfelipini-a9d06ac71bcd.json"
 
@@ -17,9 +18,25 @@ def extract_from_gcs() -> Path:
     storage_client = storage.Client()
     bucket = storage_client.get_bucket(my_bucket)
     blobs = bucket.list_blobs()
+    list_1 = list()
 
     for blob in blobs:
-        print(blob.name) # if you only want to display the name of the blob
+        list_1.append(blob.name)
+        
+    #print(list_1, list_1[0], list_1[2])
+    
+    df = pd.DataFrame(list_1)
+    df.to_csv('3_Ingestion/GFGGG.csv',header=False,index=False) 
+
+    username = "2023.04.17-10.23.00.csv"
+    with open('3_Ingestion/GFGGG.csv', 'rt') as f:
+        reader = csv.reader(f, delimiter=',')
+        for row in reader:
+            if username == row[0]: # if the username shall be on column 3 (-> index 2)
+                print("is in file")
+
+
+    print(type(blob))   
 
     return Path(f"Data/{gcs_path}")
 
@@ -53,9 +70,16 @@ def write_bq(df: pd.DataFrame) -> None:
 
 @flow()
 def etl_gcs_to_bq():
-    """Main ETL flow to load data into Big Query"""
+    """Main ETL flow to load new data into Big Query"""
 
-    path = extract_from_gcs()
+    #Primeiro é necessário ler os arquivos no bucket
+    #Salvar esses arquivos num CSV
+    #Rodar somente o código com os CSVs que ainda não foram carregados para o BigQuery
+    #Após subir o arquivo no BigQuery, colocar no CSV que ele já foi lido e deletar a versão local
+
+    #Fazer laço For para passar por todos os arquivos ainda não lidos
+    #Código para obter os arquivos
+    path = extract_from_gcs() #Mandar o nome do arquivo
     #df = transform(path)
     #write_bq(df)
 
