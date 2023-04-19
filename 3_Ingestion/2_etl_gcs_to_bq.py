@@ -3,23 +3,23 @@ import pandas as pd
 from prefect import flow, task
 from prefect_gcp.cloud_storage import GcsBucket
 from prefect_gcp import GcpCredentials
+from google.cloud import storage
+import os
+
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"]="C:/Users/hfeli/OneDrive/Documents/Cursos/DataEngineering/Projects/de-zoomcamp-project-important-files/de-zoomcamp-project-hfelipini-a9d06ac71bcd.json"
 
 @task(retries=3)
 def extract_from_gcs() -> Path:
     """Download stock data from GCS"""
     gcs_path = f"1-Raw/2023.04.14-10.08.00.csv"
-    
-    gcs_block = GcsBucket.load("de-project")
-    #blobs = gcs_block.list_blobs(folder="")
-    #print(blobs, len(blobs))
-    #my_bucket = "dtc_data_lake_de-zoomcamp-project-hfelipini"
-    #bucket = storage_client.get_bucket(my_bucket)
-    #blobs = bucket.list_blobs(prefix = my_prefix, delimiter = '/')
-    blobs = gcs_block.list_blobs()
+        
+    my_bucket = "dtc_data_lake_de-zoomcamp-project-hfelipini"
+    storage_client = storage.Client()
+    bucket = storage_client.get_bucket(my_bucket)
+    blobs = bucket.list_blobs()
 
     for blob in blobs:
         print(blob.name) # if you only want to display the name of the blob
-    #gcs_block.get_directory(from_path=gcs_path, local_path=f"Data/")
 
     return Path(f"Data/{gcs_path}")
 
