@@ -2,7 +2,7 @@
     //"python.pythonPath":"C:\\Users\\hfeli\\miniconda3\\envs\\de_project\\python.exe",
     //"python.terminal.activateEnvironment": true,
     //"terminal.integrated.shell.windows": "C:\\Windows\\System32\\cmd.exe",
-    //"terminal.integrated.defaultProfile.windows": "Command Prompt",
+    "terminal.integrated.defaultProfile.windows": "Command Prompt",
     //"python.condaPath": "C:\\Users\\hfeli\\Anaconda3\\Scripts\\conda.exe",
     //"terminal.integrated.shellArgs.windows": ["/K", "C:\\Users\\hfeli\\miniconda3\\Scripts\\activate.bat"]
 }
