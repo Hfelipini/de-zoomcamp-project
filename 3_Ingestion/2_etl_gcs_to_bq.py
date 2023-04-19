@@ -10,14 +10,15 @@ def extract_from_gcs() -> Path:
     gcs_path = f"1-Raw/2023.04.14-10.08.00.csv"
     
     gcs_block = GcsBucket.load("de-project")
-    blobs = gcs_block.list_blobs(folder="")
-    folders = {
-            str(PurePosixPath(blob.name).parent).replace(".", "") for blob in blobs
-        }
-    list(folders)
-    print(folders, blobs)
-#    for blob in blobs:
-#        print(blob.name)
+    #blobs = gcs_block.list_blobs(folder="")
+    #print(blobs, len(blobs))
+    #my_bucket = "dtc_data_lake_de-zoomcamp-project-hfelipini"
+    #bucket = storage_client.get_bucket(my_bucket)
+    #blobs = bucket.list_blobs(prefix = my_prefix, delimiter = '/')
+    blobs = gcs_block.list_blobs()
+
+    for blob in blobs:
+        print(blob.name) # if you only want to display the name of the blob
     #gcs_block.get_directory(from_path=gcs_path, local_path=f"Data/")
 
     return Path(f"Data/{gcs_path}")
