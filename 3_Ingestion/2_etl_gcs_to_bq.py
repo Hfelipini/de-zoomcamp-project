@@ -1,4 +1,4 @@
-from pathlib import Path
+from pathlib import Path, PurePosixPath
 import pandas as pd
 from prefect import flow, task
 from prefect_gcp.cloud_storage import GcsBucket
@@ -8,19 +8,24 @@ from prefect_gcp import GcpCredentials
 def extract_from_gcs() -> Path:
     """Download stock data from GCS"""
     gcs_path = f"1-Raw/2023.04.14-10.08.00.csv"
+    
     gcs_block = GcsBucket.load("de-project")
-    gcs_block.get_directory(from_path=gcs_path, local_path=f"Data/")
+    blobs = gcs_block.list_blobs(folder="")
+    folders = {
+            str(PurePosixPath(blob.name).parent).replace(".", "") for blob in blobs
+        }
+    list(folders)
+    print(folders, blobs)
+#    for blob in blobs:
+#        print(blob.name)
+    #gcs_block.get_directory(from_path=gcs_path, local_path=f"Data/")
 
     return Path(f"Data/{gcs_path}")
 
 @task()
 def transform(path: Path) -> pd.DataFrame:
     """Data cleaning"""
-    df = pd.read_csv(path)
-    #print(df["Open"].head(21))
-    #print(f"columns: {df.dtypes}")
-    #print(f"rows: {len(df)}")
-        
+    df = pd.read_csv(path)       
     df["DateTime"] = pd.to_datetime(df["DateTime"])
     df["Open"] = pd.to_numeric(df["Open"]).round(2)
     df["High"] = pd.to_numeric(df["High"]).round(2)
@@ -29,9 +34,6 @@ def transform(path: Path) -> pd.DataFrame:
     df["RealVolume"] = pd.to_numeric(df["RealVolume"])
     df["Spread"] = pd.to_numeric(df["Spread"])
     df["TickVolume"] = pd.to_numeric(df["TickVolume"])
-    #print(df["Open"].head(21))
-    #print(f"columns: {df.dtypes}")
-    #print(f"rows: {len(df)}")
     return df
 
 @task()
@@ -53,8 +55,8 @@ def etl_gcs_to_bq():
     """Main ETL flow to load data into Big Query"""
 
     path = extract_from_gcs()
-    df = transform(path)
-    write_bq(df)
+    #df = transform(path)
+    #write_bq(df)
 
 
 if __name__ == "__main__":
