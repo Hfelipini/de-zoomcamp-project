@@ -6,6 +6,8 @@ from prefect_gcp import GcpCredentials
 from google.cloud import storage
 import os
 import csv
+from os import listdir
+from os.path import isfile, join
 
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"]="C:/Users/hfeli/OneDrive/Documents/Cursos/DataEngineering/Projects/de-zoomcamp-project-important-files/de-zoomcamp-project-hfelipini-a9d06ac71bcd.json"
 
@@ -29,6 +31,7 @@ def transform(path: Path) -> pd.DataFrame:
     df["RealVolume"] = pd.to_numeric(df["RealVolume"])
     df["Spread"] = pd.to_numeric(df["Spread"])
     df["TickVolume"] = pd.to_numeric(df["TickVolume"])
+    #print(df.head(20))
     return df
 
 @task()
@@ -41,21 +44,21 @@ def write_bq(df: pd.DataFrame) -> None:
         destination_table="de_project_dataset.python_test",
         project_id="de-zoomcamp-project-hfelipini",
         credentials=gcp_credentials_block.get_credentials_from_service_account(),
-        chunksize=500_000,
+        #chunksize=500_000,
         if_exists="append",
     )
+
+@task()
+def clean_folder() -> None:
+    Filepath = "./local_save/"
+    onlyfiles = [f for f in listdir(Filepath) if isfile(join(Filepath, f))]
+    for size in range(len(onlyfiles)):
+        File = onlyfiles[size]
+        os.remove(Filepath+File)
 
 @flow()
 def etl_gcs_to_bq():
     """Main ETL flow to load new data into Big Query"""
-
-    #Primeiro é necessário ler os arquivos no bucket
-    #Salvar esses arquivos num CSV
-    #Rodar somente o código com os CSVs que ainda não foram carregados para o BigQuery
-    #Após subir o arquivo no BigQuery, colocar no CSV que ele já foi lido e deletar a versão local
-
-    #Fazer laço For para passar por todos os arquivos ainda não lidos
-    #Código para obter os arquivos
 
     my_bucket = "dtc_data_lake_de-zoomcamp-project-hfelipini"
     storage_client = storage.Client()
@@ -70,17 +73,14 @@ def etl_gcs_to_bq():
         str_arr_csv = c.readlines()
     for files_in_bucket in range(len(list_files)):
         file_name = list_files[files_in_bucket]
-        if str(file_name) in str(str_arr_csv):
-            print(file_name, "True")
-        else:
-            print(file_name, "False")
+        if str(file_name) not in str(str_arr_csv):
             path = extract_from_gcs(file_name)
-            #df = transform(path)
-            #write_bq(df) 
-
+            df = transform(path)
+            write_bq(df)
+    
+    clean_folder()
     df_files = pd.DataFrame(list_files)
     df_files.to_csv('3_Ingestion/Check_to_BQ.csv',header=False,index=False)
-
 
 if __name__ == "__main__":
     etl_gcs_to_bq()
