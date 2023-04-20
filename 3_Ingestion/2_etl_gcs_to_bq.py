@@ -1,11 +1,11 @@
-from pathlib import Path, PurePosixPath
+import csv
 import pandas as pd
+from pathlib import Path, PurePosixPath
 from prefect import flow, task
 from prefect_gcp.cloud_storage import GcsBucket
 from prefect_gcp import GcpCredentials
 from google.cloud import storage
 import os
-import csv
 from os import listdir
 from os.path import isfile, join
 
@@ -21,7 +21,7 @@ def extract_from_gcs(gsc_path: str) -> Path:
 
 @task()
 def transform(path: Path) -> pd.DataFrame:
-    """Data cleaning"""
+    """Data cleaning and formatting"""
     df = pd.read_csv(path)       
     df["DateTime"] = pd.to_datetime(df["DateTime"])
     df["Open"] = pd.to_numeric(df["Open"]).round(2)
@@ -31,7 +31,6 @@ def transform(path: Path) -> pd.DataFrame:
     df["RealVolume"] = pd.to_numeric(df["RealVolume"])
     df["Spread"] = pd.to_numeric(df["Spread"])
     df["TickVolume"] = pd.to_numeric(df["TickVolume"])
-    #print(df.head(20))
     return df
 
 @task()
@@ -44,12 +43,12 @@ def write_bq(df: pd.DataFrame) -> None:
         destination_table="de_project_dataset.python_test",
         project_id="de-zoomcamp-project-hfelipini",
         credentials=gcp_credentials_block.get_credentials_from_service_account(),
-        #chunksize=500_000,
         if_exists="append",
     )
 
 @task()
 def clean_folder() -> None:
+    """Delete all files in local folder"""
     Filepath = "./local_save/"
     onlyfiles = [f for f in listdir(Filepath) if isfile(join(Filepath, f))]
     for size in range(len(onlyfiles)):
@@ -60,17 +59,21 @@ def clean_folder() -> None:
 def etl_gcs_to_bq():
     """Main ETL flow to load new data into Big Query"""
 
+    """Retrieve the list of files in GCS Bucket"""
     my_bucket = "dtc_data_lake_de-zoomcamp-project-hfelipini"
     storage_client = storage.Client()
     bucket = storage_client.get_bucket(my_bucket)
     blobs = bucket.list_blobs()
     list_files = list()
 
+    """Save all files names in a list"""
     for blob in blobs:
         list_files.append(blob.name)
     
+    """Check which files aren't in the list, so these will be uploaded to BigQuery"""
     with open('3_Ingestion/Check_to_BQ.csv', 'rt') as c:
         str_arr_csv = c.readlines()
+        
     for files_in_bucket in range(len(list_files)):
         file_name = list_files[files_in_bucket]
         if str(file_name) not in str(str_arr_csv):
@@ -78,6 +81,7 @@ def etl_gcs_to_bq():
             df = transform(path)
             write_bq(df)
     
+    """Finally, clean the local folder for space management and save the files uploaded in CSV to compare next runs"""
     clean_folder()
     df_files = pd.DataFrame(list_files)
     df_files.to_csv('3_Ingestion/Check_to_BQ.csv',header=False,index=False)
