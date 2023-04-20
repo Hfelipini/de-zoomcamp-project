@@ -22,7 +22,7 @@ def clean_folder(Filepath) -> None:
     onlyfiles = [f for f in listdir(Filepath) if isfile(join(Filepath, f))]
     for size in range(len(onlyfiles)):
         File = onlyfiles[size]
-        os.remove(Filepath+File)
+        #os.remove(Filepath+File)
 
 @flow()
 def etl_local_to_gsc():

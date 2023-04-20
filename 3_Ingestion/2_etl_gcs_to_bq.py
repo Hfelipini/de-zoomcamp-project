@@ -9,35 +9,13 @@ import csv
 
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"]="C:/Users/hfeli/OneDrive/Documents/Cursos/DataEngineering/Projects/de-zoomcamp-project-important-files/de-zoomcamp-project-hfelipini-a9d06ac71bcd.json"
 
-@task(retries=3)
-def extract_from_gcs() -> Path:
+@task()
+def extract_from_gcs(gsc_path: str) -> Path:
     """Download stock data from GCS"""
-    gcs_path = f"1-Raw/2023.04.14-10.08.00.csv"
-        
-    my_bucket = "dtc_data_lake_de-zoomcamp-project-hfelipini"
-    storage_client = storage.Client()
-    bucket = storage_client.get_bucket(my_bucket)
-    blobs = bucket.list_blobs()
-    list_1 = list()
-
-    for blob in blobs:
-        list_1.append(blob.name)
-        
-    #print(list_1, list_1[0], list_1[2])
+    gcs_block = GcsBucket.load("de-project")
+    gcs_block.get_directory(from_path=gsc_path, local_path=f"./local_save/")
     
-    df = pd.DataFrame(list_1)
-    df.to_csv('3_Ingestion/GFGGG.csv',header=False,index=False) 
-
-    username = "2023.04.17-10.23.00.csv"
-    with open('3_Ingestion/GFGGG.csv', 'rt') as f:
-        reader = csv.reader(f, delimiter=',')
-        for row in reader:
-            if username == row[0]: # if the username shall be on column 3 (-> index 2)
-                print("is in file")
-
-    print(type(blob))   
-
-    return Path(f"Data/{gcs_path}")
+    return Path(f"./local_save/{gsc_path}")
 
 @task()
 def transform(path: Path) -> pd.DataFrame:
@@ -78,9 +56,30 @@ def etl_gcs_to_bq():
 
     #Fazer laço For para passar por todos os arquivos ainda não lidos
     #Código para obter os arquivos
-    path = extract_from_gcs() #Mandar o nome do arquivo
-    #df = transform(path)
-    #write_bq(df)
+
+    my_bucket = "dtc_data_lake_de-zoomcamp-project-hfelipini"
+    storage_client = storage.Client()
+    bucket = storage_client.get_bucket(my_bucket)
+    blobs = bucket.list_blobs()
+    list_files = list()
+
+    for blob in blobs:
+        list_files.append(blob.name)
+    
+    with open('3_Ingestion/Check_to_BQ.csv', 'rt') as c:
+        str_arr_csv = c.readlines()
+    for files_in_bucket in range(len(list_files)):
+        file_name = list_files[files_in_bucket]
+        if str(file_name) in str(str_arr_csv):
+            print(file_name, "True")
+        else:
+            print(file_name, "False")
+            path = extract_from_gcs(file_name)
+            #df = transform(path)
+            #write_bq(df) 
+
+    df_files = pd.DataFrame(list_files)
+    df_files.to_csv('3_Ingestion/Check_to_BQ.csv',header=False,index=False)
 
 
 if __name__ == "__main__":
