@@ -35,7 +35,6 @@ def extract_from_gcs() -> Path:
             if username == row[0]: # if the username shall be on column 3 (-> index 2)
                 print("is in file")
 
-
     print(type(blob))   
 
     return Path(f"Data/{gcs_path}")
