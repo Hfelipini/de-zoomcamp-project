@@ -25,6 +25,7 @@ def extract_from_gcs(gsc_path: str) -> Path:
 def transform(path: Path) -> pd.DataFrame:
     """Data cleaning and formatting"""
     df = pd.read_csv(path)       
+    #df["ViewTime"] = pd.to_datetime(df["ViewTime"])
     df["DateTime"] = pd.to_datetime(df["DateTime"])
     df["Open"] = pd.to_numeric(df["Open"]).round(2)
     df["High"] = pd.to_numeric(df["High"]).round(2)
