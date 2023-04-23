@@ -1,15 +1,16 @@
-#!/usr/bin/python
-import csv
+import os
+from os import listdir
+from os.path import isfile, join
 import pandas as pd
 from pathlib import Path, PurePosixPath
 from prefect import flow, task
 from prefect_gcp.cloud_storage import GcsBucket
 from prefect_gcp import GcpCredentials
 from google.cloud import storage
-import os
-from os import listdir
-from os.path import isfile, join
-import numpy as np
+from google.oauth2 import service_account
+
+credentials = service_account.Credentials.from_service_account_file(filename="C:/Users/hfeli/OneDrive/Documents/Cursos/DataEngineering/Projects/de-zoomcamp-project-important-files/de-zoomcamp-project-hfelipini-a9d06ac71bcd.json",
+                                                                    scopes=["https://www.googleapis.com/auth/cloud-platform"])
 
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"]="C:/Users/hfeli/OneDrive/Documents/Cursos/DataEngineering/Projects/de-zoomcamp-project-important-files/de-zoomcamp-project-hfelipini-a9d06ac71bcd.json"
 
@@ -50,10 +51,20 @@ def write_bq(df: pd.DataFrame) -> None:
     )
 
 @task()
-def update_csv(list_files: list) -> None:
+def update_csv_and_BQ(list_files: list) -> None:
     """Update the CSV reference"""
+    """Update the partitioned table at BigQuery"""
     df_files = pd.DataFrame(list_files)
     df_files.to_csv('C:/Users/hfeli/OneDrive/Documents/Cursos/DataEngineering/Projects/de-zoomcamp-project/3_Ingestion/Check_to_BQ.csv',header=False,index=False)
+
+    query = '''
+        CREATE OR REPLACE TABLE `de-zoomcamp-project-hfelipini.de_project_dataset.python_test_partitioned`
+        PARTITION BY DATE(DateTime)
+        CLUSTER BY Ticker AS (
+            SELECT * FROM `de-zoomcamp-project-hfelipini.de_project_dataset.python_test`
+        );
+    '''
+    pd.read_gbq(credentials=credentials, query=query)
 
 
 @task()
@@ -84,7 +95,6 @@ def etl_gcs_to_bq():
     with open('3_Ingestion/Check_to_BQ.csv', 'rt') as c:
         str_arr_csv = c.readlines()
         
-    #os.remove('3_Ingestion/Check_to_BQ.csv')
     for files_in_bucket in range(len(list_files)):
         file_name = list_files[files_in_bucket]
         if str(file_name) not in str(str_arr_csv):
@@ -93,7 +103,7 @@ def etl_gcs_to_bq():
             write_bq(df)
     
     """Finally, clean the local folder for space management and save the files uploaded in CSV to compare next runs"""
-    update_csv(list_files)
+    update_csv_and_BQ(list_files)
     clean_folder()
 
 if __name__ == "__main__":
