@@ -1,3 +1,4 @@
+#!/usr/bin/python
 import csv
 import pandas as pd
 from pathlib import Path, PurePosixPath
@@ -8,6 +9,7 @@ from google.cloud import storage
 import os
 from os import listdir
 from os.path import isfile, join
+import numpy as np
 
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"]="C:/Users/hfeli/OneDrive/Documents/Cursos/DataEngineering/Projects/de-zoomcamp-project-important-files/de-zoomcamp-project-hfelipini-a9d06ac71bcd.json"
 
@@ -47,6 +49,13 @@ def write_bq(df: pd.DataFrame) -> None:
     )
 
 @task()
+def update_csv(list_files: list) -> None:
+    """Update the CSV reference"""
+    df_files = pd.DataFrame(list_files)
+    df_files.to_csv('C:/Users/hfeli/OneDrive/Documents/Cursos/DataEngineering/Projects/de-zoomcamp-project/3_Ingestion/Check_to_BQ.csv',header=False,index=False)
+
+
+@task()
 def clean_folder() -> None:
     """Delete all files in local folder"""
     Filepath = "./local_save/"
@@ -74,6 +83,7 @@ def etl_gcs_to_bq():
     with open('3_Ingestion/Check_to_BQ.csv', 'rt') as c:
         str_arr_csv = c.readlines()
         
+    #os.remove('3_Ingestion/Check_to_BQ.csv')
     for files_in_bucket in range(len(list_files)):
         file_name = list_files[files_in_bucket]
         if str(file_name) not in str(str_arr_csv):
@@ -82,9 +92,8 @@ def etl_gcs_to_bq():
             write_bq(df)
     
     """Finally, clean the local folder for space management and save the files uploaded in CSV to compare next runs"""
+    update_csv(list_files)
     clean_folder()
-    df_files = pd.DataFrame(list_files)
-    df_files.to_csv('3_Ingestion/Check_to_BQ.csv',header=False,index=False)
 
 if __name__ == "__main__":
     etl_gcs_to_bq()
