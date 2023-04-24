@@ -8,7 +8,7 @@ query = '''
     SELECT
         DISTINCT(ID), *
     FROM `de-zoomcamp-project-hfelipini.de_project_dataset.python_test_partitioned`
-    ORDER BY Ticker ASC
+    ORDER BY Ticker ASC, DateTime DESC
 '''
 
 query_2 = '''
@@ -22,3 +22,4 @@ query_2 = '''
 
 query_result = pd.read_gbq(credentials=credentials, query=query)
 print(len(query_result))
+print(query_result.head(20))
