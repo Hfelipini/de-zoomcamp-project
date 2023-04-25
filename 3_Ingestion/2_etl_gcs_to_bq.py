@@ -35,6 +35,7 @@ def transform(path: Path) -> pd.DataFrame:
     df["RealVolume"] = pd.to_numeric(df["RealVolume"])
     df["Spread"] = pd.to_numeric(df["Spread"])
     df["TickVolume"] = pd.to_numeric(df["TickVolume"])
+    #Create Time in Minutes: 60*hour + minute to compare in the left join
     return df
 
 @task()
@@ -44,7 +45,8 @@ def write_bq(df: pd.DataFrame) -> None:
     gcp_credentials_block = GcpCredentials.load("de-project-creds")
 
     df.to_gbq(
-        destination_table="de_project_dataset.python_test",
+        #destination_table="de_project_dataset.python_test",
+        destination_table="de_project_dataset.python_test_partitioned",
         project_id="de-zoomcamp-project-hfelipini",
         credentials=gcp_credentials_block.get_credentials_from_service_account(),
         if_exists="append",
@@ -56,7 +58,7 @@ def update_csv_and_BQ(list_files: list) -> None:
     """Update the partitioned table at BigQuery"""
     df_files = pd.DataFrame(list_files)
     df_files.to_csv('C:/Users/hfeli/OneDrive/Documents/Cursos/DataEngineering/Projects/de-zoomcamp-project/3_Ingestion/Check_to_BQ.csv',header=False,index=False)
-
+    """
     query = '''
         CREATE OR REPLACE TABLE `de-zoomcamp-project-hfelipini.de_project_dataset.python_test_partitioned`
         PARTITION BY DATE(DateTime)
@@ -64,8 +66,10 @@ def update_csv_and_BQ(list_files: list) -> None:
             SELECT * FROM `de-zoomcamp-project-hfelipini.de_project_dataset.python_test`
         );
     '''
+    # Don't partitionate the whole table, too many data. Partition also with data from last 7 days maximum.
+    # SELECT * trocar pelas colunas desejadas -> Datetime, Ticker, Close, Time in Minutes, Dia
     pd.read_gbq(credentials=credentials, query=query)
-
+    """
 
 @task()
 def clean_folder() -> None:
@@ -101,6 +105,7 @@ def etl_gcs_to_bq():
             path = extract_from_gcs(file_name)
             df = transform(path)
             write_bq(df)
+            #update BQ here
     
     """Finally, clean the local folder for space management and save the files uploaded in CSV to compare next runs"""
     update_csv_and_BQ(list_files)
