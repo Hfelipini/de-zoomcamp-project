@@ -3,7 +3,7 @@ from google.oauth2 import service_account
 
 credentials = service_account.Credentials.from_service_account_file(filename="C:/Users/hfeli/OneDrive/Documents/Cursos/DataEngineering/Projects/de-zoomcamp-project-important-files/de-zoomcamp-project-hfelipini-a9d06ac71bcd.json",
                                                                     scopes=["https://www.googleapis.com/auth/cloud-platform"])
-"""Create Partitioned table for query optimization in time"""
+"""Create Partitioned table for query optimization"""
 
 query = '''
     CREATE OR REPLACE TABLE `de-zoomcamp-project-hfelipini.de_project_dataset.python_test_partitioned`
