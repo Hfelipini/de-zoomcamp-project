@@ -52,8 +52,8 @@ def write_bq(df: pd.DataFrame) -> None:
     gcp_credentials_block = GcpCredentials.load("de-project-creds")
 
     df.to_gbq(
-        destination_table="de_project_dataset.python_test",
-        #destination_table="de_project_dataset.python_test_partitioned",
+        #destination_table="de_project_dataset.python_test",
+        destination_table="de_project_dataset.python_test_partitioned",
         project_id="de-zoomcamp-project-hfelipini",
         credentials=gcp_credentials_block.get_credentials_from_service_account(),
         if_exists="append",
