@@ -35,6 +35,13 @@ def transform(path: Path) -> pd.DataFrame:
     df["RealVolume"] = pd.to_numeric(df["RealVolume"])
     df["Spread"] = pd.to_numeric(df["Spread"])
     df["TickVolume"] = pd.to_numeric(df["TickVolume"])
+    df["Year"]=pd.DatetimeIndex(df["DateTime"]).year
+    df["Month"]=pd.DatetimeIndex(df["DateTime"]).month
+    df["Day"]=pd.DatetimeIndex(df["DateTime"]).day
+    df["Hour"]=pd.DatetimeIndex(df["DateTime"]).hour
+    df["Minute"]=pd.DatetimeIndex(df["DateTime"]).minute
+    df["Dayframe"]=df["Day"]+31*df["Month"]+365*df["Year"]
+    df["Timeframe"]=df["Minute"]+60*df["Hour"]
     #Create Time in Minutes: 60*hour + minute to compare in the left join
     return df
 
@@ -45,8 +52,8 @@ def write_bq(df: pd.DataFrame) -> None:
     gcp_credentials_block = GcpCredentials.load("de-project-creds")
 
     df.to_gbq(
-        #destination_table="de_project_dataset.python_test",
-        destination_table="de_project_dataset.python_test_partitioned",
+        destination_table="de_project_dataset.python_test",
+        #destination_table="de_project_dataset.python_test_partitioned",
         project_id="de-zoomcamp-project-hfelipini",
         credentials=gcp_credentials_block.get_credentials_from_service_account(),
         if_exists="append",
