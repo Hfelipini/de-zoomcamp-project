@@ -3,7 +3,7 @@ from pathlib import Path
 from prefect import flow, task
 from prefect_gcp.cloud_storage import GcsBucket
 from google.cloud import storage
-import glob
+#import glob
 import os
 from os import listdir
 from os.path import isfile, join
@@ -31,7 +31,6 @@ def etl_local_to_gsc():
     Filepath='C:/Users/hfeli/AppData/Roaming/MetaQuotes/Terminal/D0E8209F77C8CF37AD8BF550E51FF075/MQL5/Files/'
     write_gsc(Filepath)
     clean_folder(Filepath)
-    #exec(open('3_Ingestion/2_etl_gcs_to_bq.py').read())
 
 if __name__ == '__main__':
     etl_local_to_gsc()
