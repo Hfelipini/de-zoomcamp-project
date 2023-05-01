@@ -1,6 +1,8 @@
 # de-zoomcamp-project
 
 Test
+
+
 1 - Racional do Trade
 
 2 - Google Sheets
