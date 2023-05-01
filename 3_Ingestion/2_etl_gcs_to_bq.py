@@ -26,7 +26,6 @@ def extract_from_gcs(gsc_path: str) -> Path:
 def transform(path: Path) -> pd.DataFrame:
     """Data cleaning and formatting"""
     df = pd.read_csv(path)       
-    #df["ViewTime"] = pd.to_datetime(df["ViewTime"])
     df["DateTime"] = pd.to_datetime(df["DateTime"])
     df["Open"] = pd.to_numeric(df["Open"]).round(2)
     df["High"] = pd.to_numeric(df["High"]).round(2)
@@ -42,7 +41,6 @@ def transform(path: Path) -> pd.DataFrame:
     df["Minute"]=pd.DatetimeIndex(df["DateTime"]).minute
     df["Dayframe"]=df["Day"]+31*df["Month"]+365*df["Year"]
     df["Timeframe"]=df["Minute"]+60*df["Hour"]
-    #Create Time in Minutes: 60*hour + minute to compare in the left join
     return df
 
 @task()
@@ -52,7 +50,8 @@ def write_bq(df: pd.DataFrame) -> None:
     gcp_credentials_block = GcpCredentials.load("de-project-creds")
 
     df.to_gbq(
-        #destination_table="de_project_dataset.python_test",
+        #Once the table is created, chance the destination table to the partitioned
+        #destination_table="de_project_dataset.python_test", 
         destination_table="de_project_dataset.python_test_partitioned",
         project_id="de-zoomcamp-project-hfelipini",
         credentials=gcp_credentials_block.get_credentials_from_service_account(),
@@ -65,18 +64,6 @@ def update_csv_and_BQ(list_files: list) -> None:
     """Update the partitioned table at BigQuery"""
     df_files = pd.DataFrame(list_files)
     df_files.to_csv('C:/Users/hfeli/OneDrive/Documents/Cursos/DataEngineering/Projects/de-zoomcamp-project/3_Ingestion/Check_to_BQ.csv',header=False,index=False)
-    """
-    query = '''
-        CREATE OR REPLACE TABLE `de-zoomcamp-project-hfelipini.de_project_dataset.python_test_partitioned`
-        PARTITION BY DATE(DateTime)
-        CLUSTER BY Ticker AS (
-            SELECT * FROM `de-zoomcamp-project-hfelipini.de_project_dataset.python_test`
-        );
-    '''
-    # Don't partitionate the whole table, too many data. Partition also with data from last 7 days maximum.
-    # SELECT * trocar pelas colunas desejadas -> Datetime, Ticker, Close, Time in Minutes, Dia
-    pd.read_gbq(credentials=credentials, query=query)
-    """
 
 @task()
 def clean_folder() -> None:
@@ -112,7 +99,6 @@ def etl_gcs_to_bq():
             path = extract_from_gcs(file_name)
             df = transform(path)
             write_bq(df)
-            #update BQ here
     
     """Finally, clean the local folder for space management and save the files uploaded in CSV to compare next runs"""
     update_csv_and_BQ(list_files)

@@ -9,6 +9,7 @@ credentials = service_account.Credentials.from_service_account_file(filename="C:
 
 @task()
 def query_write() -> str:
+    """Write the Query to obtain the variation of each ticker related to the previous one in the most recent update"""
     query = '''
     CREATE OR REPLACE TABLE `de-zoomcamp-project-hfelipini.de_project_dataset.minute_rate`
     AS (
@@ -41,6 +42,7 @@ def query_write() -> str:
         
 @task()
 def send_query(query: str) -> None:
+    """Run the query in Google BigQuery to create the updated table""" 
     pd.read_gbq(credentials=credentials, query=query)
 
 @flow()

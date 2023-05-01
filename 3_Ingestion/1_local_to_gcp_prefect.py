@@ -3,7 +3,6 @@ from pathlib import Path
 from prefect import flow, task
 from prefect_gcp.cloud_storage import GcsBucket
 from google.cloud import storage
-#import glob
 import os
 from os import listdir
 from os.path import isfile, join
