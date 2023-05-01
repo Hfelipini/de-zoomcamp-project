@@ -24,7 +24,7 @@ python_test.createOrReplaceTempView('python_test')
 minute_rate = spark.sql(
     """
       SELECT
-        DISTINCT(A.ID), A.Ticker, A.Close, A.Timeframe, A.Dayframe, B.Close as ClosePrevious, CAST(A.Close AS DECIMAL) / B.Close - 1 as Rate
+        DISTINCT(A.ID), A.DateTime, A.Ticker, A.Close, A.Timeframe, A.Dayframe, B.Close as ClosePrevious, CAST(A.Close AS DECIMAL) / B.Close - 1 as Rate
       FROM python_test A,
            python_test B 
       WHERE 

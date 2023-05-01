@@ -1,9 +1,9 @@
-gs://dtc_data_lake_de-zoomcamp-project-code-hfelipini/test_spark_bq.py
+gs://dtc_data_lake_de-zoomcamp-project-code-hfelipini/A_Spark_to_BQ.py
 gs://spark-lib/bigquery/spark-bigquery-latest_2.12.jar
 * 10-17 * * 1-5
 run-dataproc-workflow@de-zoomcamp-project-hfelipini.iam.gserviceaccount.com
 RunDataprocWorkflow
 
-https://dataproc.googleapis.com/v1/projects/de-zoomcamp-project-hfelipini/regions/southamerica-east1/workflowTemplates/template-c702e:instantiate?alt=json
+https://dataproc.googleapis.com/v1/projects/de-zoomcamp-project-hfelipini/regions/southamerica-east1/workflowTemplates/transform_bq_workflow_template:instantiate?alt=json
 
 https://www.youtube.com/watch?v=L2N4ojToLXk
