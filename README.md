@@ -52,6 +52,9 @@ These technologies were carefully chosen to ensure efficient data processing, re
 
 These key features collectively enable the project to efficiently ingest real-time stock data, process it in a scalable and distributed manner, and store it in Google BigQuery for further analysis and decision-making. The use of BigQuery partitioning and clustering enhances query performance and optimizes data storage. The transformation process utilizing PySpark on Dataproc ensures the data is refined and up to date, while Prefect orchestration facilitates the reliable and streamlined execution of the entire data pipeline.
 
+# Pipeline
+
+
 # Installation and Setup
 
 To set up the project, follow the detailed installation and configuration instructions provided below. The guide will walk you through the necessary steps, including the installation of required dependencies and the configuration of GCP services.
