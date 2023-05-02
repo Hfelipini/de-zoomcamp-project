@@ -59,7 +59,7 @@ These key features collectively enable the project to efficiently ingest real-ti
 
 To set up the project, follow the detailed installation and configuration instructions provided below. The guide will walk you through the necessary steps, including the installation of required dependencies and the configuration of GCP services.
 
-# 1 - Metatrader 5
+## 1 - Metatrader 5
 
 To run the code and interact with Metatrader 5, follow these steps:
 
@@ -91,7 +91,8 @@ To run the code and interact with Metatrader 5, follow these steps:
 
 These steps will guide you through the process of downloading, installing, and setting up Metatrader 5 to run the code using MQL5. Ensure that you have the necessary permissions and credentials to access the trading platform and start trading with the code. I used the stocks from the Brazilian Stock Index (Ibovespa), you may use any stocks that you see fit.
 In case you don't wish to download and setup the Metatrader into in your computer, I provided a backup from all the files generated in 2023.04.28 so you can unzip it and try for yourself in a folder that you designate the files.
-# 2 - GCP - Google Cloud Platform
+
+## 2 - GCP - Google Cloud Platform
 
 Below are the two main steps to setup the GCP platform.
 
@@ -124,7 +125,7 @@ To create a service account in Google Cloud Platform (GCP), follow these steps:
 9. The key file will be downloaded to your local computer, which you can use for authentication and authorization purposes.
 
 By following these steps, you will create a service account with the necessary roles and generate a JSON key file to authenticate and authorize your application or project to access the specified GCP resources.
-# 3 - Terraform
+## 3 - Terraform
 
 
 To install and set up Terraform, follow these steps:
@@ -163,8 +164,8 @@ The terraform plan command creates an execution plan that previews the changes t
 
 - **3.9. Manage your infrastructure**: Use Terraform commands such as *plan*, *apply*, *destroy*, and more to manage and update your infrastructure. Refer to the Terraform documentation for a comprehensive list of available commands and their usage.
 
-# 4 - Ingestion
-## Prefect Orchestrator Configuration for Ingestion Process
+## 4 - Ingestion
+### Prefect Orchestrator Configuration for Ingestion Process
 
 To configure the Prefect orchestrator for the ingestion process, follow these steps:
 
@@ -221,7 +222,7 @@ To configure the Prefect orchestrator for the ingestion process, follow these st
 
 These steps will guide you through the configuration of the Prefect orchestrator for the ingestion process. Make sure to follow each step carefully and refer to the Prefect documentation for more advanced features and customization options.
 
-# 5 - Data Warehouse - Partitioning and Clustering Optimization
+## 5 - Data Warehouse - Partitioning and Clustering Optimization
 
 To optimize query performance in the data warehouse, follow these steps:
 
@@ -253,11 +254,11 @@ In BigQuery will appear the new partitioned table with an altered icon, as seen 
 
 - **5.3. Run optimized queries**: With the partitioning and clustering in place, run queries against the table to take advantage of the optimization. Queries that include filtering on the partition field or the clustered fields should benefit from improved performance.
 
-# 6 - Transformation - Data Processing and Loading to BigQuery
+## 6 - Transformation - Data Processing and Loading to BigQuery
 
 For the transformation step, you have two options to choose from: running the process in Google Cloud Platform (GCP) or running it locally with Python and Prefect. Read below for details on each option:
 
-## 6.1. Option A - Google Cloud Platform
+### 6.1. Option A - Google Cloud Platform
 
 For the transformation step, you have the option to use Google Cloud Platform (GCP) services, specifically Dataproc with Spark to load the processed data into BigQuery. Follow these steps:
 
@@ -294,7 +295,7 @@ Then, press *Create* and the google scheduler will be created.
 And then the jobs will be running according to the scheduler:
 ![image](https://user-images.githubusercontent.com/22395461/235785117-3927dbfd-5913-4b2b-a5dd-2ad022dcb252.png)
 
-## 6.2. Option B - Local with Python and Prefect
+### 6.2. Option B - Local with Python and Prefect
 
 If you prefer to run the transformation process locally, you can use Python with Prefect. Follow these steps:
 
@@ -308,7 +309,7 @@ By following these steps, you can run the transformation process locally using P
 
 Ensure that you have the necessary dependencies and libraries installed locally to run the transformation process with Python and Prefect.
 
-# 7 - Report
+## 7 - Report
 
 The project was last updated in April 28th, 2023 at 02:23:00 PM.
 You can find the report at: https://lookerstudio.google.com/reporting/b48de497-8e5b-46ee-bd6e-267bc736ec1f/page/XElOD
