@@ -5,6 +5,7 @@ This Data Engineering Project - Stock Analysis by the Minute - is a data pipelin
 ## Problem Statement
 
 Traditional stock market analysis tools, such as Google Sheets, often suffer from a significant time delay in receiving real-time stock data. In the case of Google Sheets, this delay can be as long as 15 minutes, which hampers timely decision-making in fast-paced markets. Traders and investors require access to up-to-date information to make informed choices and take advantage of rapidly changing market conditions.
+![1 Azul4 Trade](https://user-images.githubusercontent.com/22395461/235795213-31ca7ba0-702c-4659-be3b-5e6188ae1172.JPG)
 
 ## Solution
 
