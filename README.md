@@ -1,6 +1,6 @@
 # Data Engineering Project - Stock Analysis by the Minute 📈📊🐂
 
-This Data Engineering Project - Stock Analysis by the Minute - is a data pipeline built on Google Cloud Platform (GCP) that retrieves real-time stock data from the Metatrader 5 platform and identifies the stocks with the highest positive or negative variation in the last minute. This project aims to provide valuable insights into stock market trends and facilitate informed decision-making for traders and investors, focusing on identifying potential trades with a good risk-reward ratio.
+This Data Engineering Project - Stock Analysis by the Minute - is a data pipeline built for the Data Engineering Zoomcamp 2023, https://github.com/DataTalksClub/data-engineering-zoomcamp, on Google Cloud Platform (GCP) that retrieves real-time stock data from the Metatrader 5 platform and identifies the stocks with the highest positive or negative variation in the last minute. This project aims to provide valuable insights into stock market trends and facilitate informed decision-making for traders and investors, focusing on identifying potential trades with a good risk-reward ratio.
 
 ## Problem Statement
 
