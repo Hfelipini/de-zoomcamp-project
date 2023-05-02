@@ -271,21 +271,22 @@ Cron command for google scheduler
 
 For the transformation step, you have the option to use Google Cloud Platform (GCP) services, specifically Dataproc with Spark to load the processed data into BigQuery. Follow these steps:
 
-1. **Usage of Dataproc with Spark to BigQuery**: Use Dataproc with Spark to perform data processing and loading into BigQuery. You can write PySpark code to transform the data as required. Here's an example of the PySpark code:
+1. **Create Workflow Template in Dataproc**: Create a workflow template that defines the sequence of steps to execute for the transformation process. Include the cluster creation, job submission, and any additional steps required for data processing.
+
+2. **Configure Cluster and Job**: Configure a cluster in Dataproc to run the PySpark script. Set the necessary properties, such as the number of nodes, machine types, and initialization actions. Create a job to submit the PySpark script to the cluster.
+
+3. **Usage of Dataproc with Spark to BigQuery**: Use Dataproc with Spark to perform data processing and loading into BigQuery. You can write PySpark code to transform the data as required. Here's an example of the PySpark code:
 
    - Create a PySpark script to transform the data, for example, `A_Spark_to_BQ.py`. Upload this file to a bucket in GCS, for example:
 
      `gs://dtc_data_lake_de-zoomcamp-project-code-hfelipini/A_Spark_to_BQ.py`
 
-   - You will also need the `spark-bigquery` library for Spark. Upload the JAR file to a bucket in GCS, for example:
+   - You will also need the java library for Spark in BigQuery. Upload the JAR file to a bucket in GCS, for example:
 
      `gs://spark-lib/bigquery/spark-bigquery-latest_2.12.jar`
 
-2. **Configure Cluster and Job**: Configure a cluster in Dataproc to run the PySpark script. Set the necessary properties, such as the number of nodes, machine types, and initialization actions. Create a job to submit the PySpark script to the cluster.
-
-3. **Create Workflow Template**: Create a workflow template that defines the sequence of steps to execute for the transformation process. Include the cluster creation, job submission, and any additional steps required for data processing.
-
 4. **Configure Job and Google Scheduler**: Set up a job in Dataproc to execute the workflow template. Use Google Scheduler to schedule the job execution at specific intervals. Here's an example of a cron command for Google Scheduler:
+
 Define the schedule:
    ```shell
    * 10-17 * * 1-5
@@ -306,7 +307,7 @@ And then the jobs will be running according to the scheduler:
 
 - **6.2. Option B - Local**
 
-As seen that the 
+As seen that the option A may be expensive, I created an option to run in the local system using Python with Prefect, being updated minute by minute.
 
 # 7 - Report
 
