@@ -180,6 +180,8 @@ To configure the Prefect orchestrator for the ingestion process, follow these st
     ```
 
 - **4.3. Create GCP Credentials & Bucket blocks**: Create a Google Cloud Storage (GCS) bucket and copy the key generated when you created the service account. Paste the key to authenticate and access the GCS bucket.
+![Prefect GCS Credentials Block](https://user-images.githubusercontent.com/22395461/235559668-ac4d2557-17d0-49c8-94e2-edc8c4738f53.JPG)
+![Prefect GCS Bucket Block](https://user-images.githubusercontent.com/22395461/235559680-286c8fab-02e9-4fae-86ef-c7fd05943162.JPG)
 
 - **4.4. Prefect deployment & Agent creation**:
 
@@ -200,12 +202,15 @@ To configure the Prefect orchestrator for the ingestion process, follow these st
         prefect agent start --work-queue "AgentLocal"
         prefect agent start --work-queue "AgentBQ"
         ```
+![Prefect Deployments](https://user-images.githubusercontent.com/22395461/235559706-5859608e-1bc7-4086-b2ac-864cf5880dab.png)
+![Prefect - Work Queues](https://user-images.githubusercontent.com/22395461/235559712-b19f0cf7-816c-43fa-9d97-0c8a40f5f048.JPG)
 
 - **4.5. Prefect Flow Runs follow-up**:
 
-    - Monitor the status and progress of the Prefect flow runs using the Prefect UI or Prefect CLI.
+    - Monitor the status and progress of the Prefect flow runs using the Prefect UI or Prefect CLI, like in the image below where you can check the system running in a specific day, with time taken for each flow in seconds.
     - Use the Prefect UI to view logs, inspect task results, and manage the execution of the flows.
     - Use the Prefect CLI to interact with flows, perform operations, and get detailed information about the flow runs.
+![Prefect Flows Run 28 04 23](https://user-images.githubusercontent.com/22395461/235559840-5aa4e23a-c952-419a-8429-e50a3f032988.JPG)
 
 These steps will guide you through the configuration of the Prefect orchestrator for the ingestion process. Make sure to follow each step carefully and refer to the Prefect documentation for more advanced features and customization options.
 
