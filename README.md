@@ -52,11 +52,11 @@ These technologies were carefully chosen to ensure efficient data processing, re
 
 These key features collectively enable the project to efficiently ingest real-time stock data, process it in a scalable and distributed manner, and store it in Google BigQuery for further analysis and decision-making. The use of BigQuery partitioning and clustering enhances query performance and optimizes data storage. The transformation process utilizing PySpark on Dataproc ensures the data is refined and up to date, while Prefect orchestration facilitates the reliable and streamlined execution of the entire data pipeline.
 
-## Installation and Setup
+# Installation and Setup
 
 To set up the project, follow the detailed installation and configuration instructions provided below. The guide will walk you through the necessary steps, including the installation of required dependencies and the configuration of GCP services.
 
-# 1 - Metatrader 5
+## 1 - Metatrader 5
 
 To run the code and interact with Metatrader 5, follow these steps:
 
@@ -87,13 +87,12 @@ To run the code and interact with Metatrader 5, follow these steps:
 - **1.11. Start the code**: Click the "Play" button in the toolbar or press `F5` to start running the code on the attached chart.
 
 These steps will guide you through the process of downloading, installing, and setting up Metatrader 5 to run the code using MQL5. Ensure that you have the necessary permissions and credentials to access the trading platform and start trading with the code. I used the stocks from the Brazilian Stock Index (Ibovespa), you may use any stocks that you see fit.
+In case you don't wish to download and setup the Metatrader into in your computer, I provided a backup from all the files generated in 2023.04.28 so you can unzip it and try for yourself in a folder that you designate the files.
 # 2 - GCP - Google Cloud Platform
 
 Below are the two main steps to setup the GCP platform.
 
-- **2.1 - Setup GCP Project**
-
-- *Set up a new project*: Create a new project in the Google Cloud Console. Choose a meaningful name for your project and make note of the project ID.
+- **2.1 - Setup GCP Project**: Create a new project in the Google Cloud Console. Choose a meaningful name for your project and make note of the project ID.
 
 - **2.2 - Create Service Account**
 
@@ -124,6 +123,40 @@ To create a service account in Google Cloud Platform (GCP), follow these steps:
 By following these steps, you will create a service account with the necessary roles and generate a JSON key file to authenticate and authorize your application or project to access the specified GCP resources.
 # 3 - Terraform
 
+
+To install and set up Terraform, follow these steps:
+
+**- 3.1. Download Terraform**: Visit the official [Terraform downloads page](https://www.terraform.io/downloads.html) and download the appropriate Terraform package for your operating system.
+
+**- 3.2. Extract the Terraform binary**: After downloading the Terraform package, extract the contents of the package to a directory of your choice.
+
+**- 3.3. Add the Terraform binary to the system PATH**: Add the directory containing the Terraform binary to your system's `PATH` environment variable.
+
+**- 4.3. **Verify the installation**: Open a new terminal or command prompt and run the following command to verify that Terraform is installed correctly:
+
+   ```shell
+   terraform version
+
+If Terraform is installed correctly, you will see the version number printed in the terminal.
+
+5. Authenticate with your cloud provider: Configure API credentials or use a service account key file to authenticate with your cloud provider. Refer to your cloud provider's documentation for detailed instructions on authentication.
+
+6. Initialize a Terraform project: Navigate to the root directory of your Terraform project in the CLI and run the following command to initialize the project:
+    ```shell
+    terraform init
+
+This command initializes the project, downloads the required provider plugins, and sets up the Terraform backend.
+
+7. Write your infrastructure code: Create or modify Terraform configuration files (with a .tf extension) to define your desired infrastructure resources and their configurations. Refer to the Terraform documentation and examples for guidance on writing Terraform code.
+
+8. Plan and apply changes: Use the following commands to create an execution plan and apply changes to your infrastructure:
+    ```shell
+    terraform plan
+    terraform apply
+
+The terraform plan command creates an execution plan that previews the changes to your infrastructure. Review the plan to ensure it aligns with your expectations. The terraform apply command applies the changes. Enter yes when prompted to confirm.
+
+9. Manage your infrastructure: Use Terraform commands such as *plan*, *apply*, *destroy*, and more to manage and update your infrastructure. Refer to the Terraform documentation for a comprehensive list of available commands and their usage.
 # 4 - Ingestion
 
 # 5 - DW
