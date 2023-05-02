@@ -159,6 +159,53 @@ The terraform plan command creates an execution plan that previews the changes t
 
 - **3.9. Manage your infrastructure**: Use Terraform commands such as *plan*, *apply*, *destroy*, and more to manage and update your infrastructure. Refer to the Terraform documentation for a comprehensive list of available commands and their usage.
 # 4 - Ingestion
+## Prefect Orchestrator Configuration for Ingestion Process
+
+To configure the Prefect orchestrator for the ingestion process, follow these steps:
+
+- **4.1. Create a virtual environment**: Use the following commands to create a virtual environment and install the required dependencies:
+
+    ```shell
+    conda create -n de_project python=3.10
+    conda activate de_project
+    pip install -r requirements.txt
+    ```
+
+- **4.2. Start Prefect**: Use the following command to start Prefect Orion and visualize all the flows and tasks in the pipeline:
+
+    ```shell
+    prefect orion start
+    ```
+
+- **4.3. Create GCP Credentials & Bucket blocks**: Create a Google Cloud Storage (GCS) bucket and copy the key generated when you created the service account. Paste the key to authenticate and access the GCS bucket.
+
+- **4.4. Prefect deployment & Agent creation**:
+
+    - Build and deploy the "Local to GCP" flow:
+        ```shell
+        prefect deployment build 3_Ingestion/1_local_to_gcp_prefect.py:etl_local_to_gsc -n "Local to GCP"
+        prefect deployment apply etl_local_to_gsc-deployment.yaml
+        ```
+
+    - Build and deploy the "GCS to BQ" flow:
+        ```shell
+        prefect deployment build 3_Ingestion/2_etl_gcs_to_bq.py:etl_gcs_to_bq -n "GCS to BQ"
+        prefect deployment apply etl_gcs_to_bq-deployment.yaml
+        ```
+
+    - Start the Prefect agents for the respective work queues:
+        ```shell
+        prefect agent start --work-queue "AgentLocal"
+        prefect agent start --work-queue "AgentBQ"
+        ```
+
+- **4.5. Prefect Flow Runs follow-up**:
+
+    - Monitor the status and progress of the Prefect flow runs using the Prefect UI or Prefect CLI.
+    - Use the Prefect UI to view logs, inspect task results, and manage the execution of the flows.
+    - Use the Prefect CLI to interact with flows, perform operations, and get detailed information about the flow runs.
+
+These steps will guide you through the configuration of the Prefect orchestrator for the ingestion process. Make sure to follow each step carefully and refer to the Prefect documentation for more advanced features and customization options.
 
 # 5 - DW
 
