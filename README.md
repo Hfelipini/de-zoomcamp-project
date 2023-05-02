@@ -244,9 +244,10 @@ To optimize query performance in the data warehouse, follow these steps:
    bq show --format=prettyjson project:dataset.table
 
 Replace project:dataset.table with the destination table name.
+In BigQuery will appear the new partitioned table with an altered icon, as seen in the image below.
+![DW](https://user-images.githubusercontent.com/22395461/235561329-4949b5a9-cded-4449-b0e8-51d739fbab3f.JPG)
 
 - **5.3. Run optimized queries**: With the partitioning and clustering in place, run queries against the table to take advantage of the optimization. Queries that include filtering on the partition field or the clustered fields should benefit from improved performance.
-
 
 # 6 - Transformation - Option A - GCP, Option B - Local
 
@@ -255,7 +256,7 @@ Replace project:dataset.table with the destination table name.
 
 ## Usage
 
-Once the project is properly installed and configured, you can run the batch processing job using PySpark to retrieve and process real-time stock data. The resulting stocks with significant price variations can be accessed and analyzed through the designated data storage solution. Detailed instructions and usage examples can be found in the [Usage Guide](link-to-usage-guide).
+Once the project is properly installed and configured, you can run the batch processing job using PySpark, Prefect and GCP to retrieve and process real-time stock data. The resulting stocks with significant price variations can be accessed and analyzed through the designated data storage solution.
 
 ## Contributing
 
