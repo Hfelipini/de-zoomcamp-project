@@ -1,17 +1,4 @@
-# de-zoomcamp-project
-
-3 - MetaTrader
-
-4 - Terraform
-
-5 - Ingestão
-
-6 - DW
-
-7 - Transformation - 2 options
-
-8 - Report
-# Data Engineering Project
+# Data Engineering Project - Stock Analysis by the minute 📈📊🐂
 
 The Data Engineering Project is a data pipeline built on Google Cloud Platform (GCP) that retrieves real-time stock data from the Metatrader 5 platform and identifies the stocks with the highest positive or negative variation in the last minute. This project aims to provide valuable insights into stock market trends and facilitate informed decision-making for traders and investors, focusing on identifying potential trades with a good risk-reward ratio.
 
@@ -67,7 +54,27 @@ These key features collectively enable the project to efficiently ingest real-ti
 
 ## Installation and Setup
 
-To set up the project, follow the detailed installation and configuration instructions provided in the [Installation Guide](link-to-installation-guide). The guide will walk you through the necessary steps, including the installation of required dependencies and the configuration of GCP services.
+To set up the project, follow the detailed installation and configuration instructions provided below. The guide will walk you through the necessary steps, including the installation of required dependencies and the configuration of GCP services.
+
+# 1 - Metatrader 5
+
+# 2 - GCP
+
+- **2.1 - Setup GCP Project**
+Create new project in Google Cloud Console → switch to that newly created project
+
+- **2.2 - Create Service Account**
+
+# 3 - Terraform
+
+# 4 - Ingestão
+
+# 5 - DW
+
+# 6 - Transformation - Option A - GCP, Option B - Local
+
+# 7 - Report
+
 
 ## Usage
 
@@ -77,6 +84,8 @@ Once the project is properly installed and configured, you can run the batch pro
 
 Contributions to the project are welcome! If you would like to contribute, please follow the guidelines outlined in the [Contributing Guide](link-to-contributing-guide). This guide provides information on how to set up a development environment, submit bug reports, suggest improvements, and propose new features.
 
-## License
+## Next Steps
 
-The Metatrader 5 Data Engineering Project is released under
+- Using streaming process instead of batch processing
+- Just the tip of iceberg for future trading strategies
+- Create the version with local processing using Docker and PostgreSQL
