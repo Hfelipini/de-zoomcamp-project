@@ -286,7 +286,6 @@ For the transformation step, you have the option to use Google Cloud Platform (G
      `gs://spark-lib/bigquery/spark-bigquery-latest_2.12.jar`
 
 4. **Configure Job and Google Scheduler**: Set up a job in Dataproc to execute the workflow template. Use Google Scheduler to schedule the job execution at specific intervals. Here's an example of a cron command for Google Scheduler:
-
 Define the schedule:
    ```shell
    * 10-17 * * 1-5
