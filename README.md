@@ -253,21 +253,9 @@ In BigQuery will appear the new partitioned table with an altered icon, as seen 
 
 - **5.3. Run optimized queries**: With the partitioning and clustering in place, run queries against the table to take advantage of the optimization. Queries that include filtering on the partition field or the clustered fields should benefit from improved performance.
 
-# 6 - Transformation - Option A - GCP, Option B - Local
+# 6 - Transformation - Data Processing and Loading to BigQuery
 
-- **6.1. Option A - Google Cloud Platform**:
-- Usage of Dataproc with Spark to BigQuery.
-- Informations for Job and google scheduler:
-- A new bucket was created to upload the file into the Job in Dataproc.
-gs://dtc_data_lake_de-zoomcamp-project-code-hfelipini/A_Spark_to_BQ.py
-Jar file to run the PySpark code in Cluster
-gs://spark-lib/bigquery/spark-bigquery-latest_2.12.jar
-Cron command for google scheduler
-* 10-17 * * 1-5
-
-## Transformation - Data Processing and Loading to BigQuery
-
-### 6.1. Option A - Google Cloud Platform
+## 6.1. Option A - Google Cloud Platform
 
 For the transformation step, you have the option to use Google Cloud Platform (GCP) services, specifically Dataproc with Spark to load the processed data into BigQuery. Follow these steps:
 
@@ -304,7 +292,7 @@ Then, press *Create* and the google scheduler will be created.
 And then the jobs will be running according to the scheduler:
 ![image](https://user-images.githubusercontent.com/22395461/235785117-3927dbfd-5913-4b2b-a5dd-2ad022dcb252.png)
 
-- **6.2. Option B - Local with Python and Prefect**
+## 6.2. Option B - Local with Python and Prefect
 
 If you prefer to run the transformation process locally, you can use Python with Prefect. Follow these steps:
 
