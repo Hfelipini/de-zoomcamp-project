@@ -304,9 +304,19 @@ Then, press *Create* and the google scheduler will be created.
 And then the jobs will be running according to the scheduler:
 ![image](https://user-images.githubusercontent.com/22395461/235785117-3927dbfd-5913-4b2b-a5dd-2ad022dcb252.png)
 
-- **6.2. Option B - Local**
+- **6.2. Option B - Local with Python and Prefect**
 
-As seen that the option A may be expensive, I created an option to run in the local system using Python with Prefect, being updated minute by minute.
+If you prefer to run the transformation process locally, you can use Python with Prefect. Follow these steps:
+
+1. **Configure and Deploy Prefect**: Set up Prefect on your local system. Create the necessary configuration and deployment files to define the flow and tasks for the transformation process. Use the Prefect CLI to build and deploy the Prefect flow.
+
+2. **Configure CRON Recurrence**: Schedule the Prefect flow to run at specific intervals using the CRON recurrence pattern. For example, you can set the recurrence to `* 10-16 * * 1-5`, which runs the flow between 10:00 AM and 4:59 PM from Monday to Friday.
+
+3. **Create and Start Prefect Agent**: Create a new Prefect agent to execute the flow. Start the agent, and it will automatically run the transformation process and select the rates of variation from the last minute updated data. This ensures that the report is updated minute by minute.
+
+By following these steps, you can run the transformation process locally using Python with Prefect. The Prefect flow will be executed according to the scheduled CRON recurrence, providing up-to-date rates of variation for the stocks.
+
+Ensure that you have the necessary dependencies and libraries installed locally to run the transformation process with Python and Prefect.
 
 # 7 - Report
 
