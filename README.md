@@ -138,7 +138,7 @@ To install and set up Terraform, follow these steps:
    terraform version
 
 If Terraform is installed correctly, you will see the version number printed in the terminal, like the image below.
-Terraform version.JPG
+![Terraform version](https://user-images.githubusercontent.com/22395461/235557232-2f6c4a57-17f5-4aa0-929f-1e8fcbe67876.JPG)
 
 - **3.5. Authenticate with your cloud provider**: Configure API credentials or use a service account key file to authenticate with your cloud provider. Refer to your cloud provider's documentation for detailed instructions on authentication.
 
@@ -148,7 +148,8 @@ Terraform version.JPG
 
 This command initializes the project, downloads the required provider plugins, and sets up the Terraform backend.
 
-- **3.7. Write your infrastructure code**: Create or modify Terraform configuration files (with a .tf extension) to define your desired infrastructure resources and their configurations. Refer to the Terraform documentation and examples for guidance on writing Terraform code.
+- **3.7. Write your infrastructure code**: Create or modify Terraform configuration files (with a .tf extension) to define your desired infrastructure resources and their configurations. Refer to the Terraform documentation and examples for guidance on writing Terraform code. Below are examples from this project for the files variables.tf:
+![Terraform Variables](https://user-images.githubusercontent.com/22395461/235557290-c749e858-10b7-4f3a-ab21-2b5b55d40047.png)
 
 - **3.8. Plan and apply changes**: Use the following commands to create an execution plan and apply changes to your infrastructure:
     ```shell
@@ -158,6 +159,7 @@ This command initializes the project, downloads the required provider plugins, a
 The terraform plan command creates an execution plan that previews the changes to your infrastructure. Review the plan to ensure it aligns with your expectations. The terraform apply command applies the changes. Enter yes when prompted to confirm.
 
 - **3.9. Manage your infrastructure**: Use Terraform commands such as *plan*, *apply*, *destroy*, and more to manage and update your infrastructure. Refer to the Terraform documentation for a comprehensive list of available commands and their usage.
+
 # 4 - Ingestion
 
 # 5 - DW
