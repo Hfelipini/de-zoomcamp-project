@@ -248,6 +248,7 @@ To optimize query performance in the data warehouse, follow these steps:
 
 Replace project:dataset.table with the destination table name.
 In BigQuery will appear the new partitioned table with an altered icon, as seen in the image below.
+
 ![DW](https://user-images.githubusercontent.com/22395461/235561329-4949b5a9-cded-4449-b0e8-51d739fbab3f.JPG)
 
 - **5.3. Run optimized queries**: With the partitioning and clustering in place, run queries against the table to take advantage of the optimization. Queries that include filtering on the partition field or the clustered fields should benefit from improved performance.
