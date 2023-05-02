@@ -1,6 +1,6 @@
-# Data Engineering Project - Stock Analysis by the minute 📈📊🐂
+# Data Engineering Project - Stock Analysis by the Minute 📈📊🐂
 
-The Data Engineering Project is a data pipeline built on Google Cloud Platform (GCP) that retrieves real-time stock data from the Metatrader 5 platform and identifies the stocks with the highest positive or negative variation in the last minute. This project aims to provide valuable insights into stock market trends and facilitate informed decision-making for traders and investors, focusing on identifying potential trades with a good risk-reward ratio.
+This Data Engineering Project - Stock Analysis by the Minute - is a data pipeline built on Google Cloud Platform (GCP) that retrieves real-time stock data from the Metatrader 5 platform and identifies the stocks with the highest positive or negative variation in the last minute. This project aims to provide valuable insights into stock market trends and facilitate informed decision-making for traders and investors, focusing on identifying potential trades with a good risk-reward ratio.
 
 ## Problem Statement
 
@@ -58,16 +58,73 @@ To set up the project, follow the detailed installation and configuration instru
 
 # 1 - Metatrader 5
 
-# 2 - GCP
+To run the code and interact with Metatrader 5, follow these steps:
+
+- **1.1. Download Metatrader 5**: Download the Metatrader 5 platform from the official MetaQuotes website or use the installer provided in this repository.
+
+- **1.2. Install Metatrader 5**: Run the downloaded installer and follow the on-screen instructions to install Metatrader 5 on your computer. Choose the desired installation location and options during the installation process.
+
+- **1.3. Open Metatrader 5**: Launch Metatrader 5 after the installation is complete.
+
+- **1.4 Enable Expert Advisors (EAs)**: In Metatrader 5, go to `Options` → `Expert Advisors` and make sure the following settings are enabled:
+   - Check the box for "Allow automated trading."
+   - Check the box for "Allow DLL imports."
+   - Check the box for "Confirm DLL function calls."
+   - Click **OK** to save the changes.
+
+- **1.5. Import the code**: In Metatrader 5, go to `File` → `Open Data Folder`. This will open the data folder associated with your Metatrader 5 installation.
+
+- **1.6. Locate the MQL5 folder**: In the opened data folder, navigate to the `MQL5` folder. This is where you will place the code files.
+
+- **1.7. Copy the code files**: Copy the code files from this repository and paste them into the `MQL5` folder. Ensure that the code files are placed in the correct directories according to their structure.
+
+- **1.8. Compile the code**: In Metatrader 5, go to `View` → `Terminal` (or press `Ctrl + T`) to open the Terminal window. In the Terminal window, navigate to the `Navigator` tab, expand the `Expert Advisors` section, and find the imported code files. Right-click on each code file and select `Compile` to compile the code.
+
+- **1.9. Attach the code to a chart**: Once the code is successfully compiled, you can attach it to a chart by dragging and dropping it from the `Navigator` window onto the desired chart. Adjust the code's input parameters if necessary.
+
+- **1.10. Enable live trading**: To enable live trading with the code, ensure that the Auto Trading button in the toolbar is enabled (green). You may need to log in to your trading account within Metatrader 5 to enable live trading.
+
+- **1.11. Start the code**: Click the "Play" button in the toolbar or press `F5` to start running the code on the attached chart.
+
+These steps will guide you through the process of downloading, installing, and setting up Metatrader 5 to run the code using MQL5. Ensure that you have the necessary permissions and credentials to access the trading platform and start trading with the code. I used the stocks from the Brazilian Stock Index (Ibovespa), you may use any stocks that you see fit.
+# 2 - GCP - Google Cloud Platform
+
+Below are the two main steps to setup the GCP platform.
 
 - **2.1 - Setup GCP Project**
-Create new project in Google Cloud Console → switch to that newly created project
+
+- *Set up a new project*: Create a new project in the Google Cloud Console. Choose a meaningful name for your project and make note of the project ID.
 
 - **2.2 - Create Service Account**
 
+To create a service account in Google Cloud Platform (GCP), follow these steps:
+
+1. Go to the Google Cloud Console and navigate to **IAM & Admin** → **Service Accounts**.
+
+2. Click on the **Create Service Account** button to create a new service account.
+
+3. Enter a **name** and **description** for the service account, and click **Create**.
+
+4. In the **Service account permissions** section, grant the following roles to the service account:
+   - **Viewer**: Allows viewing of resources in the project.
+   - **Storage Admin**: Provides management access to Google Cloud Storage resources.
+   - **Storage Object Admin**: Enables management of objects in Google Cloud Storage.
+   - **BigQuery Admin**: Gives administrative access to manage and administer BigQuery resources.
+
+5. Click **Continue** to proceed.
+
+6. On the service account details page, click the three dots (**⋮**) on the right side and select **Manage keys**.
+
+7. Click on **Add Key** → **Create new key**.
+
+8. Choose the **JSON** key type and click **Create**.
+
+9. The key file will be downloaded to your local computer, which you can use for authentication and authorization purposes.
+
+By following these steps, you will create a service account with the necessary roles and generate a JSON key file to authenticate and authorize your application or project to access the specified GCP resources.
 # 3 - Terraform
 
-# 4 - Ingestão
+# 4 - Ingestion
 
 # 5 - DW
 
