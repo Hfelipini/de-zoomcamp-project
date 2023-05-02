@@ -181,6 +181,7 @@ To configure the Prefect orchestrator for the ingestion process, follow these st
 
 - **4.3. Create GCP Credentials & Bucket blocks**: Create a Google Cloud Storage (GCS) bucket and copy the key generated when you created the service account. Paste the key to authenticate and access the GCS bucket.
 ![Prefect GCS Credentials Block](https://user-images.githubusercontent.com/22395461/235559668-ac4d2557-17d0-49c8-94e2-edc8c4738f53.JPG)
+------
 ![Prefect GCS Bucket Block](https://user-images.githubusercontent.com/22395461/235559680-286c8fab-02e9-4fae-86ef-c7fd05943162.JPG)
 
 - **4.4. Prefect deployment & Agent creation**:
@@ -203,7 +204,9 @@ To configure the Prefect orchestrator for the ingestion process, follow these st
         prefect agent start --work-queue "AgentBQ"
         ```
 ![Deployment Transform BQ](https://user-images.githubusercontent.com/22395461/235559977-7fdbe2d7-6670-4ef6-ab98-297ea872a201.JPG)
+------
 ![Prefect Deployments](https://user-images.githubusercontent.com/22395461/235559706-5859608e-1bc7-4086-b2ac-864cf5880dab.png)
+------
 ![Prefect - Work Queues](https://user-images.githubusercontent.com/22395461/235559712-b19f0cf7-816c-43fa-9d97-0c8a40f5f048.JPG)
 
 - **4.5. Prefect Flow Runs follow-up**:
@@ -215,7 +218,35 @@ To configure the Prefect orchestrator for the ingestion process, follow these st
 
 These steps will guide you through the configuration of the Prefect orchestrator for the ingestion process. Make sure to follow each step carefully and refer to the Prefect documentation for more advanced features and customization options.
 
-# 5 - DW
+# 5 - Data Warehouse - Partitioning and Clustering Optimization
+
+To optimize query performance in the data warehouse, follow these steps:
+
+- **5.1. Create a partitioned table**: After loading the data into BigQuery, create a partitioned table using SQL queries in Python. Here's an example of how to create a partitioned table using the `bq` Python package:
+
+   ```python
+   import pandas as pd
+   from google.oauth2 import service_account
+
+   credentials = service_account.Credentials.from_service_account_file(filename=`credentials_path`,
+                                                                     scopes=["https://www.googleapis.com/auth/cloud-platform"])
+      query = '''
+      CREATE OR REPLACE TABLE `de-zoomcamp-project-hfelipini.de_project_dataset.python_test_partitioned`
+      PARTITION BY DATE(DateTime)
+      CLUSTER BY Ticker AS (
+         SELECT * FROM `de-zoomcamp-project-hfelipini.de_project_dataset.python_test`
+      );
+   '''
+   pd.read_gbq(credentials=credentials, query=query)
+
+- **5.2. Verify the partition and clustering**: Use the BigQuery UI or the following command to verify that the table is properly partitioned and clustered:
+   ```shell
+   bq show --format=prettyjson project:dataset.table
+
+Replace project:dataset.table with the destination table name.
+
+- **5.3. Run optimized queries**: With the partitioning and clustering in place, run queries against the table to take advantage of the optimization. Queries that include filtering on the partition field or the clustered fields should benefit from improved performance.
+
 
 # 6 - Transformation - Option A - GCP, Option B - Local
 
