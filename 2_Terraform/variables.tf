@@ -3,7 +3,7 @@ locals {
 }
 
 variable "project" {
-  description = "Your GCP Project ID"
+  description = "Data Engineer Zoomcamp Final Project"
 }
 
 variable "region" {

@@ -132,7 +132,7 @@ To install and set up Terraform, follow these steps:
 
 - **3.3. Add the Terraform binary to the system PATH**: Add the directory containing the Terraform binary to your system's `PATH` environment variable.
 
-- **3.4. **Verify the installation**: Open a new terminal or command prompt and run the following command to verify that Terraform is installed correctly:
+- **3.4. Verify the installation**: Open a new terminal or command prompt and run the following command to verify that Terraform is installed correctly:
 
    ```shell
    terraform version
