@@ -59,7 +59,7 @@ These key features collectively enable the project to efficiently ingest real-ti
 
 To set up the project, follow the detailed installation and configuration instructions provided below. The guide will walk you through the necessary steps, including the installation of required dependencies and the configuration of GCP services.
 
-## 1 - Metatrader 5
+# 1 - Metatrader 5
 
 To run the code and interact with Metatrader 5, follow these steps:
 
