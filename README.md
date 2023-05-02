@@ -202,6 +202,7 @@ To configure the Prefect orchestrator for the ingestion process, follow these st
         prefect agent start --work-queue "AgentLocal"
         prefect agent start --work-queue "AgentBQ"
         ```
+![Deployment Transform BQ](https://user-images.githubusercontent.com/22395461/235559977-7fdbe2d7-6670-4ef6-ab98-297ea872a201.JPG)
 ![Prefect Deployments](https://user-images.githubusercontent.com/22395461/235559706-5859608e-1bc7-4086-b2ac-864cf5880dab.png)
 ![Prefect - Work Queues](https://user-images.githubusercontent.com/22395461/235559712-b19f0cf7-816c-43fa-9d97-0c8a40f5f048.JPG)
 
