@@ -255,6 +255,8 @@ In BigQuery will appear the new partitioned table with an altered icon, as seen 
 
 # 6 - Transformation - Data Processing and Loading to BigQuery
 
+For the transformation step, you have two options to choose from: running the process in Google Cloud Platform (GCP) or running it locally with Python and Prefect. Read below for details on each option:
+
 ## 6.1. Option A - Google Cloud Platform
 
 For the transformation step, you have the option to use Google Cloud Platform (GCP) services, specifically Dataproc with Spark to load the processed data into BigQuery. Follow these steps:
