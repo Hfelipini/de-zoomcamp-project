@@ -255,8 +255,64 @@ In BigQuery will appear the new partitioned table with an altered icon, as seen 
 
 # 6 - Transformation - Option A - GCP, Option B - Local
 
+- **6.1. Option A - Google Cloud Platform**:
+- Usage of Dataproc with Spark to BigQuery.
+- Informations for Job and google scheduler:
+- A new bucket was created to upload the file into the Job in Dataproc.
+gs://dtc_data_lake_de-zoomcamp-project-code-hfelipini/A_Spark_to_BQ.py
+Jar file to run the PySpark code in Cluster
+gs://spark-lib/bigquery/spark-bigquery-latest_2.12.jar
+Cron command for google scheduler
+* 10-17 * * 1-5
+
+## Transformation - Data Processing and Loading to BigQuery
+
+### 6.1. Option A - Google Cloud Platform
+
+For the transformation step, you have the option to use Google Cloud Platform (GCP) services, specifically Dataproc with Spark to load the processed data into BigQuery. Follow these steps:
+
+1. **Usage of Dataproc with Spark to BigQuery**: Use Dataproc with Spark to perform data processing and loading into BigQuery. You can write PySpark code to transform the data as required. Here's an example of the PySpark code:
+
+   - Create a PySpark script to transform the data, for example, `A_Spark_to_BQ.py`. Upload this file to a bucket in GCS, for example:
+
+     `gs://dtc_data_lake_de-zoomcamp-project-code-hfelipini/A_Spark_to_BQ.py`
+
+   - You will also need the `spark-bigquery` library for Spark. Upload the JAR file to a bucket in GCS, for example:
+
+     `gs://spark-lib/bigquery/spark-bigquery-latest_2.12.jar`
+
+2. **Configure Cluster and Job**: Configure a cluster in Dataproc to run the PySpark script. Set the necessary properties, such as the number of nodes, machine types, and initialization actions. Create a job to submit the PySpark script to the cluster.
+
+3. **Create Workflow Template**: Create a workflow template that defines the sequence of steps to execute for the transformation process. Include the cluster creation, job submission, and any additional steps required for data processing.
+
+4. **Configure Job and Google Scheduler**: Set up a job in Dataproc to execute the workflow template. Use Google Scheduler to schedule the job execution at specific intervals. Here's an example of a cron command for Google Scheduler:
+Define the schedule:
+   ```shell
+   * 10-17 * * 1-5
+
+Configure the execution:
+   - Target type: HTTP
+   - URL: https://dataproc.googleapis.com/v1/projects/de-zoomcamp-project-hfelipini/regions/southamerica-ast1/workflowTemplates/transform_bq_workflow_template:instantiate?alt=json
+   - User-agent: Google-Cloud-Scheduler
+   - Auth header: Add OAuth Token
+   - Service account: Add service account
+   - Scope: https://www.googleapis.com/auth/cloud-platform
+
+Then, press *Create* and the google scheduler will be created.
+![Cloud Scheduler - GCP](https://user-images.githubusercontent.com/22395461/235784757-dd78b94e-fa5d-4f41-9bb0-9a845ad5170e.JPG)
+
+And then the jobs will be running according to the scheduler:
+![image](https://user-images.githubusercontent.com/22395461/235785117-3927dbfd-5913-4b2b-a5dd-2ad022dcb252.png)
+
+- **6.2. Option B - Local**
+
+As seen that the 
+
 # 7 - Report
 
+The project was last updated in April 28th, 2023 at 02:23:00 PM.
+You can find the report at: https://lookerstudio.google.com/reporting/b48de497-8e5b-46ee-bd6e-267bc736ec1f/page/XElOD
+![image](https://user-images.githubusercontent.com/22395461/235781940-a5d5b3af-3536-43af-af2f-33c51643175a.png)
 
 ## Usage
 
@@ -264,7 +320,7 @@ Once the project is properly installed and configured, you can run the batch pro
 
 ## Contributing
 
-Contributions to the project are welcome! If you would like to contribute, please follow the guidelines outlined in the [Contributing Guide](link-to-contributing-guide). This guide provides information on how to set up a development environment, submit bug reports, suggest improvements, and propose new features.
+Contributions to the project are welcome! If you would like to contribute, please feel free to enter in contact.
 
 ## Next Steps
 
