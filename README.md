@@ -126,37 +126,37 @@ By following these steps, you will create a service account with the necessary r
 
 To install and set up Terraform, follow these steps:
 
-**- 3.1. Download Terraform**: Visit the official [Terraform downloads page](https://www.terraform.io/downloads.html) and download the appropriate Terraform package for your operating system.
+- **3.1. Download Terraform**: Visit the official [Terraform downloads page](https://www.terraform.io/downloads.html) and download the appropriate Terraform package for your operating system.
 
-**- 3.2. Extract the Terraform binary**: After downloading the Terraform package, extract the contents of the package to a directory of your choice.
+- **3.2. Extract the Terraform binary**: After downloading the Terraform package, extract the contents of the package to a directory of your choice.
 
-**- 3.3. Add the Terraform binary to the system PATH**: Add the directory containing the Terraform binary to your system's `PATH` environment variable.
+- **3.3. Add the Terraform binary to the system PATH**: Add the directory containing the Terraform binary to your system's `PATH` environment variable.
 
-**- 4.3. **Verify the installation**: Open a new terminal or command prompt and run the following command to verify that Terraform is installed correctly:
+- **3.4. **Verify the installation**: Open a new terminal or command prompt and run the following command to verify that Terraform is installed correctly:
 
    ```shell
    terraform version
 
 If Terraform is installed correctly, you will see the version number printed in the terminal.
 
-5. Authenticate with your cloud provider: Configure API credentials or use a service account key file to authenticate with your cloud provider. Refer to your cloud provider's documentation for detailed instructions on authentication.
+- **3.5. Authenticate with your cloud provider**: Configure API credentials or use a service account key file to authenticate with your cloud provider. Refer to your cloud provider's documentation for detailed instructions on authentication.
 
-6. Initialize a Terraform project: Navigate to the root directory of your Terraform project in the CLI and run the following command to initialize the project:
+- **3.6. Initialize a Terraform project**: Navigate to the root directory of your Terraform project in the CLI and run the following command to initialize the project:
     ```shell
     terraform init
 
 This command initializes the project, downloads the required provider plugins, and sets up the Terraform backend.
 
-7. Write your infrastructure code: Create or modify Terraform configuration files (with a .tf extension) to define your desired infrastructure resources and their configurations. Refer to the Terraform documentation and examples for guidance on writing Terraform code.
+- **3.7. Write your infrastructure code**: Create or modify Terraform configuration files (with a .tf extension) to define your desired infrastructure resources and their configurations. Refer to the Terraform documentation and examples for guidance on writing Terraform code.
 
-8. Plan and apply changes: Use the following commands to create an execution plan and apply changes to your infrastructure:
+- **3.8. Plan and apply changes**: Use the following commands to create an execution plan and apply changes to your infrastructure:
     ```shell
     terraform plan
     terraform apply
 
 The terraform plan command creates an execution plan that previews the changes to your infrastructure. Review the plan to ensure it aligns with your expectations. The terraform apply command applies the changes. Enter yes when prompted to confirm.
 
-9. Manage your infrastructure: Use Terraform commands such as *plan*, *apply*, *destroy*, and more to manage and update your infrastructure. Refer to the Terraform documentation for a comprehensive list of available commands and their usage.
+- **3.9. Manage your infrastructure**: Use Terraform commands such as *plan*, *apply*, *destroy*, and more to manage and update your infrastructure. Refer to the Terraform documentation for a comprehensive list of available commands and their usage.
 # 4 - Ingestion
 
 # 5 - DW
