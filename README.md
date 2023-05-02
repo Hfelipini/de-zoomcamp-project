@@ -137,7 +137,8 @@ To install and set up Terraform, follow these steps:
    ```shell
    terraform version
 
-If Terraform is installed correctly, you will see the version number printed in the terminal.
+If Terraform is installed correctly, you will see the version number printed in the terminal, like the image below.
+Terraform version.JPG
 
 - **3.5. Authenticate with your cloud provider**: Configure API credentials or use a service account key file to authenticate with your cloud provider. Refer to your cloud provider's documentation for detailed instructions on authentication.
 
