@@ -9,9 +9,10 @@ from prefect_gcp import GcpCredentials
 from google.cloud import storage
 from google.oauth2 import service_account
 
+# Same
 credentials = service_account.Credentials.from_service_account_file(filename="C:/Users/hfeli/OneDrive/Documents/Cursos/DataEngineering/Projects/de-zoomcamp-project-important-files/de-zoomcamp-project-hfelipini-a9d06ac71bcd.json",
                                                                     scopes=["https://www.googleapis.com/auth/cloud-platform"])
-
+# Same
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"]="C:/Users/hfeli/OneDrive/Documents/Cursos/DataEngineering/Projects/de-zoomcamp-project-important-files/de-zoomcamp-project-hfelipini-a9d06ac71bcd.json"
 
 @task()
@@ -23,6 +24,7 @@ def extract_from_gcs(gsc_path: str) -> Path:
     return Path(f"./local_save/{gsc_path}")
 
 @task()
+# transform into what? Adding a bit more context on the method name is usually helpful.
 def transform(path: Path) -> pd.DataFrame:
     """Data cleaning and formatting"""
     df = pd.read_csv(path)       
@@ -75,6 +77,9 @@ def clean_folder() -> None:
         os.remove(Filepath+File)
 
 @flow()
+# I'm guessing GCS could be replaced with any datastore, right?
+# If you wanted to make this more generic, you could inject the datastore as parameter and abstract it away from the code.
+# You can look into "repository pattern" for more details.
 def etl_gcs_to_bq():
     """Main ETL flow to load new data into Big Query"""
 

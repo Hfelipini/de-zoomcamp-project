@@ -27,6 +27,8 @@ def clean_folder(Filepath) -> None:
 @flow()
 def etl_local_to_gsc():
     """The main ETL Function"""
+    # You should use relative path is anything here...
+    # You can also provide it as an ENV variable when you run if you want to make it flexible.
     Filepath='C:/Users/hfeli/AppData/Roaming/MetaQuotes/Terminal/D0E8209F77C8CF37AD8BF550E51FF075/MQL5/Files/'
     write_gsc(Filepath)
     clean_folder(Filepath)
