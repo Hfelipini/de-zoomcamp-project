@@ -3,7 +3,7 @@
 This Data Engineering Project - Stock Analysis by the Minute - is a data pipeline built for the Data Engineering Zoomcamp 2023, https://github.com/DataTalksClub/data-engineering-zoomcamp, on Google Cloud Platform (GCP) that retrieves real-time stock data from the Metatrader 5 platform and identifies the stocks with the highest positive or negative variation in the last minute. This project aims to provide valuable insights into stock market trends and facilitate informed decision-making for traders and investors, focusing on identifying potential trades with a good risk-reward ratio.
 
 Video with explanations about the project:
-[![Watch the video]](https://www.youtube.com/watch?v=wXAYKGo4lZI)
+[![Watch the video](https://i.imgur.com/vKb2F1B.png)](https://www.youtube.com/watch?v=wXAYKGo4lZI)
 
 ## Problem Statement
 
